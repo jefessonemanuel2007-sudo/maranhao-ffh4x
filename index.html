@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>CodePen - A Pen by Jefesson Emanuel</title>
+    
+
+  </head>
+    
+  <body>
+  index.html
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Maranhão FFH4X</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+
+    --cor:#FFD700;
+
+    --fundo:rgba(0,0,0,0.55);
+
+}
+
+body{
+
+    margin:0;
+
+    background:#000;
+
+    font-family:'Orbitron',sans-serif;
+
+    color:var(--cor);
+
+}
+
+/* LOGIN */
+
+#login, #loading{
+
+    position:fixed;
+
+    inset:0;
+
+    background:#000;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    z-index:10;
+
+}
+
+#loginBox, #loadingBox{
+
+    border:2px solid var(--cor);
+
+    padding:25px;
+
+    text-align:center;
+
+    box-shadow:0 0 25px var(--cor);
+
+}
+
+/* LOADING */
+
+.bar{
+
+    width:200px;
+
+    height:10px;
+
+    border:1px solid var(--cor);
+
+    margin-top:15px;
+
+    overflow:hidden;
+
+}
+
+.bar span{
+
+    display:block;
+
+    height:100%;
+
+    width:0;
+
+    background:var(--cor);
+
+    animation:load 3s forwards;
+
+}
+
+@keyframes load{
+
+    to{width:100%}
+
+}
+
+/* PAINEL */
+
+#painel{
+
+    width:330px;
+
+    position:absolute;
+
+    top:70px;
+
+    left:20px;
+
+    backdrop-filter:blur(10px);
+
+    background:var(--fundo);
+
+    border:2px solid var(--cor);
+
+    box-shadow:0 0 25px var(--cor);
+
+    border-radius:12px;
+
+    padding:15px;
+
+    animation:open .4s ease;
+
+}
+
+@keyframes open{
+
+    from{transform:scale(.7);opacity:0}
+
+    to{transform:scale(1);opacity:1}
+
+}
+
+.neon{
+
+    animation:neon 1.5s infinite alternate;
+
+}
+
+@keyframes neon{
+
+    from{box-shadow:0 0 10px var(--cor)}
+
+    to{box-shadow:0 0 35px var(--cor)}
+
+}
+
+h2{text-align:center;margin:5px 0}
+
+button,input{
+
+    width:100%;
+
+    margin:6px 0;
+
+    padding:8px;
+
+    background:#000;
+
+    color:var(--cor);
+
+    border:1px solid var(--cor);
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+}
+
+button:hover{
+
+    background:var(--cor);
+
+    color:#000;
+
+}
+
+.slider{accent-color:var(--cor)}
+
+.status{text-align:center;margin-top:8px}
+
+#toggle,#tema{
+
+    position:fixed;
+
+    top:10px;
+
+}
+
+#toggle{left:10px}
+
+#tema{left:120px}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- LOGIN -->
+
+<div id="login">
+
+    <div id="loginBox">
+
+        <h2>MARANHÃO FFH4X</h2>
+
+        <input id="user" placeholder="Login">
+
+        <input id="pass" type="password" placeholder="Senha">
+
+        <button onclick="logar()">ENTRAR</button>
+
+    </div>
+
+</div>
+
+<!-- LOADING -->
+
+<div id="loading" style="display:none">
+
+    <div id="loadingBox">
+
+        <h3>Carregando módulos...</h3>
+
+        <div class="bar"><span></span></div>
+
+    </div>
+
+</div>
+
+<button id="toggle" onclick="togglePainel()">ESCONDER</button>
+
+<button id="tema" onclick="trocarTema()">TEMA</button>
+
+<div id="painel" class="neon" draggable="true">
+
+    <h2>MARANHÃO FFH4X</h2>
+
+    <label>🎯 Aimbot</label>
+
+    <input type="range" class="slider" onchange="resetInject()">
+
+    <label>🔫 No Recoil</label>
+
+    <input type="range" class="slider" onchange="resetInject()">
+
+    <label>⚡ Precisão</label>
+
+    <input type="range" class="slider" onchange="resetInject()">
+
+    <button onclick="resetInject()">👑 Cabeça</button>
+
+    <button onclick="resetInject()">🦴 Pescoço</button>
+
+    <button onclick="resetInject()">🛡 Peito</button>
+
+    <button id="injectBtn" onclick="inject()">💉 INJETAR</button>
+
+    <div class="status" id="status"></div>
+
+</div>
+
+<script>
+
+/* LOGIN + LOADING */
+
+function logar(){
+
+    if(user.value==="maranhão09" && pass.value==="2026"){
+
+        login.style.display="none";
+
+        loading.style.display="flex";
+
+        setTimeout(()=>{
+
+            loading.style.display="none";
+
+        },3000);
+
+    }else{
+
+        alert("Login ou senha incorretos");
+
+    }
+
+}
+
+/* PAINEL */
+
+let visivel=true;
+
+function togglePainel(){
+
+    painel.style.display=visivel?"none":"block";
+
+    toggle.innerText=visivel?"MOSTRAR":"ESCONDER";
+
+    visivel=!visivel;
+
+}
+
+/* INJETAR */
+
+let injetado=false;
+
+function inject(){
+
+    status.innerText="Injetando códigos...";
+
+    setTimeout(()=>{
+
+        status.innerText="Códigos injetados com sucesso";
+
+        injetado=true;
+
+    },5000);
+
+}
+
+function resetInject(){
+
+    if(injetado){
+
+        status.innerText="";
+
+        injetado=false;
+
+    }
+
+}
+
+/* TROCA DE TEMA */
+
+let tema=0;
+
+function trocarTema(){
+
+    tema=!tema;
+
+    if(tema){
+
+        document.documentElement.style.setProperty('--cor','#00ffff');
+
+        document.documentElement.style.setProperty('--fundo','rgba(0,0,0,.6)');
+
+    }else{
+
+        document.documentElement.style.setProperty('--cor','#FFD700');
+
+        document.documentElement.style.setProperty('--fundo','rgba(0,0,0,.55)');
+
+    }
+
+}
+
+/* DRAG */
+
+painel.addEventListener("dragend",e=>{
+
+    painel.style.left=e.pageX+"px";
+
+    painel.style.top=e.pageY+"px";
+
+});
+
+</script>
+
+</body>
+
+</html>
+    
+  </body>
+  
+</html>
